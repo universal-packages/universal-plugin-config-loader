@@ -1,6 +1,6 @@
 {
   "name": "@universal-packages/plugin-config-loader",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Load your plugin configuration easily into a single plain old javascript object",
   "author": "David De Anda <david@universal-packages.com> (https://github.com/universal-packages)",
   "license": "MIT",
