@@ -1,1 +1,5 @@
-yml: root
+default:
+  yml: root
+
+test:
+  test: true

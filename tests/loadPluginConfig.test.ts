@@ -3,14 +3,16 @@ import { loadPluginConfig } from '../src'
 describe('loadPluginConfig', (): void => {
   it('loads following location and format priority', async (): Promise<void> => {
     // Default to package .json
-    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__' })).toEqual({ package: true })
-    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['package'] })).toEqual({ package: true })
+    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__' })).toEqual({ test: { package: true } })
+    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['package'], selectEnvironment: true })).toEqual({ package: true })
 
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'] })).toEqual({ json: 'root' })
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'], formatPriority: ['js', 'json'] })).toEqual({ js: 'root' })
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'], formatPriority: ['ts', 'json'] })).toEqual({ ts: 'root' })
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'], formatPriority: ['yaml', 'json'] })).toEqual({ json: 'root' }) // There is no yaml file
-    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'], formatPriority: ['yml', 'json'] })).toEqual({ yml: 'root' })
+    expect(
+      await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'], formatPriority: ['yml', 'json'], selectEnvironment: true })
+    ).toEqual({ yml: 'root', test: true })
 
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['.root', 'root'] })).toEqual({ json: '.root' })
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['.root', 'root'], formatPriority: ['js', 'json'] })).toEqual({ js: '.root' })

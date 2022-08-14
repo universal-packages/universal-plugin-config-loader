@@ -8,4 +8,5 @@ export interface LoadPluginConfigurationOptions {
   formatPriority?: FormatPriority
   loadFrom?: string
   locationPriority?: PluginConfigLocationPriority
+  selectEnvironment?: string | true
 }

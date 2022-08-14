@@ -1,5 +1,7 @@
 {
   "plugin": {
-    "package": true
+    "test": {
+      "package": true
+    }
   }
 }
