@@ -49,19 +49,19 @@ Loads all config files as json that matches the criteria in a conventional, file
  | .plugin.[js|ts]        <- loaded if not yaml
 ```
 
-You can always modify the priority of location and format in the optons.
+You can always modify the priority of location and format in the options.
 
 ## Options
 
 - **`formatPriority`** `['json' | 'yaml' | 'yml' | 'js' | 'ts']`
-  Prioretization order if one format is desired but does not exists which one try next?
+  Prioritization order if one format is desired but does not exists which one try next?
 
 - **`loadFrom`** `string`
-  By default it will try to load from the root path but a differnt path can be specified to load from.
+  By default it will try to load from the root path but a different path can be specified to load from.
 
 - **`locationPriority`** `['package' | 'root' | '.root' | 'directory' | '.directory']`
-  By defaut is loaded from the package first but you can change the order of the location to be fetch first.
-  - `package`: Internally embeded in the package.json file
+  By default is loaded from the package first but you can change the order of the location to be fetch first.
+  - `package`: Internally embedded in the package.json file
   - `root`: A file named as the plugin name, ex: `jest.js`
   - `.root`: A file named as the plugin name with a prefixed dot, ex: `.jest.js`
   - `directory`: A folder containing more that one config file named as the plugin name, ex: `./github`
@@ -73,7 +73,7 @@ This library is developed in TypeScript and shipped fully typed.
 
 ## Contributing
 
-The development of this library in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving this library.
+The development of this library happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving this library.
 
 - [Code of Conduct](./CODE_OF_CONDUCT.md)
 - [Contributing Guide](./CONTRIBUTING.md)
