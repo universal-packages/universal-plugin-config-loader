@@ -12,7 +12,9 @@ Load your plugin configuration easily into a single plain old javascript object,
 npm install @universal-packages/plugin-config-loader
 ```
 
-## loadPluginConfig()
+## Global methods
+
+#### **`loadPluginConfig(pluginName: string, [options])`**
 
 Reads deeply into files and directories named as the plugin name provided and get all the contents of the configuration files into a plain old javascript object.
 
