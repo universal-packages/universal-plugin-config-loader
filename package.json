@@ -15,7 +15,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\""
   },
   "dependencies": {
-    "@universal-packages/config-loader": "1.6.1"
+    "@universal-packages/config-loader": "^1.7.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.0",

@@ -37,7 +37,7 @@ async function loadPackageConfig(pluginName: string, options: LoadPluginConfigur
   const finalLocation = checkFile(`${options.loadFrom}/package.json`)
   const contents = await import(finalLocation)
 
-  return processConfig(contents[pluginName], options.selectEnvironment === true ? process.env['NODE_ENV'] : options.selectEnvironment)
+  return processConfig(contents[pluginName], options.cleanOrphanReplaceable, options.selectEnvironment === true ? process.env['NODE_ENV'] : options.selectEnvironment)
 }
 
 async function loadRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {

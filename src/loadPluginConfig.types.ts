@@ -5,6 +5,7 @@ export type PluginConfigLocation = 'package' | 'root' | '.root' | 'directory' | 
 export type PluginConfigLocationPriority = PluginConfigLocation[]
 
 export interface LoadPluginConfigurationOptions {
+  cleanOrphanReplaceable?: boolean
   formatPriority?: FormatPriority
   loadFrom?: string
   locationPriority?: PluginConfigLocationPriority

@@ -63,11 +63,15 @@ You can always modify the priority of location and format in the options.
 
 - **`locationPriority`** `['package' | 'root' | '.root' | 'directory' | '.directory']`
   By default is loaded from the package first but you can change the order of the location to be fetch first.
+
   - `package`: Internally embedded in the package.json file
   - `root`: A file named as the plugin name, ex: `jest.js`
   - `.root`: A file named as the plugin name with a prefixed dot, ex: `.jest.js`
   - `directory`: A folder containing more that one config file named as the plugin name, ex: `./github`
   - `.directory`: A folder containing more that one config file named as the plugin name with a prefixed dot, ex: `./.github`
+
+- **`cleanOrphanReplaceable`** `boolean`
+  Replaceable strings that are not found in the environment variables will be removed from the final values.
 
 ## Typescript
 
