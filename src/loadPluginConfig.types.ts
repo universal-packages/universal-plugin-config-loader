@@ -1,4 +1,5 @@
 import { FormatPriority } from '@universal-packages/config-loader'
+
 export { Format, FormatPriority } from '@universal-packages/config-loader'
 
 export type PluginConfigLocation = 'package' | 'root' | '.root' | 'directory' | '.directory'

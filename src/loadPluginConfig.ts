@@ -1,5 +1,6 @@
-import { checkFile } from '@universal-packages/fs-utils'
 import { loadConfig, loadFileConfig, processConfig } from '@universal-packages/config-loader'
+import { checkFile } from '@universal-packages/fs-utils'
+
 import { LoadPluginConfigurationOptions, PluginConfigLocation } from './loadPluginConfig.types'
 
 const PROCESSORS_MAP: Record<PluginConfigLocation, Function> = {
