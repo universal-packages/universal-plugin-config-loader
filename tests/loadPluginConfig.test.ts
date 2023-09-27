@@ -1,6 +1,6 @@
 import { loadPluginConfig } from '../src'
 
-describe('loadPluginConfig', (): void => {
+describe(loadPluginConfig, (): void => {
   it('loads following location and format priority', async (): Promise<void> => {
     // Default to package .json
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__' })).toEqual({ test: { package: true } })
