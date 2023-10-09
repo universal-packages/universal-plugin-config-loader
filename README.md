@@ -55,6 +55,12 @@ You can always modify the priority of location and format in the options.
 
 ## Options
 
+- **`cleanOrphanReplaceable`** `boolean`
+  Replaceable strings that are not found in the environment variables will be removed from the final values.
+
+- **`defaultConfig`** `Object`
+  Use to fill config that may not be present in the configuration files.
+
 - **`formatPriority`** `['json' | 'yaml' | 'yml' | 'js' | 'ts']`
   Prioritization order if one format is desired but does not exists which one try next?
 
@@ -69,9 +75,6 @@ You can always modify the priority of location and format in the options.
   - `.root`: A file named as the plugin name with a prefixed dot, ex: `.jest.js`
   - `directory`: A folder containing more that one config file named as the plugin name, ex: `./github`
   - `.directory`: A folder containing more that one config file named as the plugin name with a prefixed dot, ex: `./.github`
-
-- **`cleanOrphanReplaceable`** `boolean`
-  Replaceable strings that are not found in the environment variables will be removed from the final values.
 
 ## Typescript
 

@@ -3,7 +3,9 @@ import { loadPluginConfig } from '../src'
 describe(loadPluginConfig, (): void => {
   it('loads following location and format priority', async (): Promise<void> => {
     // Default to package .json
-    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__' })).toEqual({ test: { package: true } })
+    expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', defaultConfig: { test: { load: true, package: { deep: 'yes' } } } })).toEqual({
+      test: { load: true, package: true }
+    })
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['package'], selectEnvironment: true })).toEqual({ package: true })
 
     expect(await loadPluginConfig('plugin', { loadFrom: './tests/__fixtures__', locationPriority: ['root', '.root'] })).toEqual({ json: 'root' })

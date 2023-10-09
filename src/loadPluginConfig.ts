@@ -1,4 +1,4 @@
-import { loadConfig, loadFileConfig, processConfig } from '@universal-packages/config-loader'
+import { deepMergeConfig, loadConfig, loadFileConfig, processConfig } from '@universal-packages/config-loader'
 import { checkFile } from '@universal-packages/fs-utils'
 
 import { LoadPluginConfigurationOptions, PluginConfigLocation } from './loadPluginConfig.types'
@@ -12,7 +12,7 @@ const PROCESSORS_MAP: Record<PluginConfigLocation, Function> = {
 }
 
 /** Loads configs in the match priority order */
-export async function loadPluginConfig<T = any>(pluginName: string, options?: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
+export async function loadPluginConfig<T = Record<string, any>>(pluginName: string, options?: LoadPluginConfigurationOptions): Promise<T> {
   const finalOptions: LoadPluginConfigurationOptions = {
     loadFrom: './',
     locationPriority: ['package', 'root', '.root', 'directory', '.directory'],
@@ -38,7 +38,13 @@ async function loadPackageConfig(pluginName: string, options: LoadPluginConfigur
   const finalLocation = checkFile(`${options.loadFrom}/package.json`)
   const contents = await import(finalLocation)
 
-  return processConfig(contents[pluginName], options.cleanOrphanReplaceable, options.selectEnvironment === true ? process.env['NODE_ENV'] : options.selectEnvironment)
+  const processedConfig = processConfig(
+    contents[pluginName],
+    options.cleanOrphanReplaceable,
+    options.selectEnvironment === true ? process.env['NODE_ENV'] : options.selectEnvironment
+  )
+
+  return options.defaultConfig ? deepMergeConfig(options.defaultConfig, processedConfig) : processedConfig
 }
 
 async function loadRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
