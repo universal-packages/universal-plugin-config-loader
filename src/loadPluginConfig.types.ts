@@ -7,7 +7,6 @@ export type PluginConfigLocationPriority = PluginConfigLocation[]
 
 export interface LoadPluginConfigurationOptions {
   cleanOrphanReplaceable?: boolean
-  defaultConfig?: Record<string, any>
   formatPriority?: FormatPriority
   loadFrom?: string
   locationPriority?: PluginConfigLocationPriority

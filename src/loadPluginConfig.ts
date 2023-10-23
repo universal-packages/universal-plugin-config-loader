@@ -1,4 +1,4 @@
-import { deepMergeConfig, loadConfig, loadFileConfig, processConfig } from '@universal-packages/config-loader'
+import { loadConfig, loadFileConfig, processConfig } from '@universal-packages/config-loader'
 import { checkFile } from '@universal-packages/fs-utils'
 
 import { LoadPluginConfigurationOptions, PluginConfigLocation } from './loadPluginConfig.types'
@@ -44,7 +44,7 @@ async function loadPackageConfig(pluginName: string, options: LoadPluginConfigur
     options.selectEnvironment === true ? process.env['NODE_ENV'] : options.selectEnvironment
   )
 
-  return options.defaultConfig ? deepMergeConfig(options.defaultConfig, processedConfig) : processedConfig
+  return processedConfig
 }
 
 async function loadRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
