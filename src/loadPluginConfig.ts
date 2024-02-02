@@ -12,7 +12,7 @@ const PROCESSORS_MAP: Record<PluginConfigLocation, Function> = {
 }
 
 /** Loads configs in the match priority order */
-export async function loadPluginConfig<T = Record<string, any>>(pluginName: string, options?: LoadPluginConfigurationOptions): Promise<T> {
+export function loadPluginConfig<T = Record<string, any>>(pluginName: string, options?: LoadPluginConfigurationOptions): T {
   const finalOptions: LoadPluginConfigurationOptions = {
     loadFrom: './',
     locationPriority: ['package', 'root', '.root', 'directory', '.directory'],
@@ -25,7 +25,7 @@ export async function loadPluginConfig<T = Record<string, any>>(pluginName: stri
     const priorityName = finalOptions.locationPriority[i]
 
     try {
-      loaded = await PROCESSORS_MAP[priorityName](pluginName, finalOptions)
+      loaded = PROCESSORS_MAP[priorityName](pluginName, finalOptions)
 
       if (loaded) return loaded
     } catch {
@@ -34,9 +34,9 @@ export async function loadPluginConfig<T = Record<string, any>>(pluginName: stri
   }
 }
 
-async function loadPackageConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
+function loadPackageConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
   const finalLocation = checkFile(`${options.loadFrom}/package.json`)
-  const contents = await import(finalLocation)
+  const contents = require(finalLocation)
 
   const processedConfig = processConfig(
     contents[pluginName],
@@ -47,18 +47,18 @@ async function loadPackageConfig(pluginName: string, options: LoadPluginConfigur
   return processedConfig
 }
 
-async function loadRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
-  return await loadFileConfig(`${options.loadFrom}/${pluginName}`, options)
+function loadRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
+  return loadFileConfig(`${options.loadFrom}/${pluginName}`, options)
 }
 
-async function loadDotRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
-  return await loadRootConfig(`.${pluginName}`, options)
+function loadDotRootConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
+  return loadRootConfig(`.${pluginName}`, options)
 }
 
-async function loadDirectoryConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
-  return await loadConfig(`${options.loadFrom}/${pluginName}`, options)
+function loadDirectoryConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
+  return loadConfig(`${options.loadFrom}/${pluginName}`, options)
 }
 
-async function loadDotDirectoryConfig(pluginName: string, options: LoadPluginConfigurationOptions): Promise<Record<string, any>> {
-  return await loadDirectoryConfig(`.${pluginName}`, options)
+function loadDotDirectoryConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
+  return loadDirectoryConfig(`.${pluginName}`, options)
 }

@@ -21,13 +21,9 @@ Reads deeply into files and directories named as the plugin name provided and ge
 ```js
 import { loadPluginConfig } from '@universal-packages/plugin-config-loader'
 
-async function test() {
-  const config = await loadPluginConfig('plugin')
+const config = await loadPluginConfig('plugin')
 
-  console.log(config)
-}
-
-test()
+console.log(config)
 ```
 
 Loads all config files as json that matches the criteria in a conventional, files like:
