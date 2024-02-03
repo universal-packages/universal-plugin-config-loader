@@ -72,6 +72,9 @@ You can always modify the priority of location and format in the options.
   - `directory`: A folder containing more that one config file named as the plugin name, ex: `./github`
   - `.directory`: A folder containing more that one config file named as the plugin name with a prefixed dot, ex: `./.github`
 
+- **`selectEnvironment`** `string | boolean`
+  If you want your files to be post processed after loaded with a selection of an environment section you can specify the name of the environment to select or pass `true` to automatically set from `NODE_ENV`.
+
 ## Typescript
 
 This library is developed in TypeScript and shipped fully typed.
