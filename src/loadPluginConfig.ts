@@ -1,5 +1,5 @@
 import { loadConfig, loadFileConfig, processConfig } from '@universal-packages/config-loader'
-import { checkFile } from '@universal-packages/fs-utils'
+import { checkDirectory, checkFile } from '@universal-packages/fs-utils'
 
 import { LoadPluginConfigurationOptions, PluginConfigLocation } from './loadPluginConfig.types'
 
@@ -19,24 +19,27 @@ export function loadPluginConfig<T = Record<string, any>>(pluginName: string, op
     formatPriority: ['json', 'yaml', 'yml', 'js', 'ts'],
     ...options
   }
-  let loaded: any
 
   for (let i = 0; i < finalOptions.locationPriority.length; i++) {
     const priorityName = finalOptions.locationPriority[i]
 
-    try {
-      loaded = PROCESSORS_MAP[priorityName](pluginName, finalOptions)
+    const loaded = PROCESSORS_MAP[priorityName](pluginName, finalOptions)
 
-      if (loaded) return loaded
-    } catch {
-      continue
-    }
+    if (loaded) return loaded
   }
 }
 
 function loadPackageConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
-  const finalLocation = checkFile(`${options.loadFrom}/package.json`)
-  const contents = require(finalLocation)
+  let contents: any
+
+  try {
+    const finalLocation = checkFile(`${options.loadFrom}/package.json`)
+    contents = require(finalLocation)
+  } catch {
+    return
+  }
+
+  if (!contents[pluginName]) return
 
   const processedConfig = processConfig(
     contents[pluginName],
@@ -56,7 +59,15 @@ function loadDotRootConfig(pluginName: string, options: LoadPluginConfigurationO
 }
 
 function loadDirectoryConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
-  return loadConfig(`${options.loadFrom}/${pluginName}`, options)
+  let finalLocation: string
+
+  try {
+    finalLocation = checkDirectory(`${options.loadFrom}/${pluginName}`)
+  } catch {
+    return
+  }
+
+  return loadConfig(finalLocation, options)
 }
 
 function loadDotDirectoryConfig(pluginName: string, options: LoadPluginConfigurationOptions): Record<string, any> {
